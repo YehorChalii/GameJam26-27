@@ -13,14 +13,21 @@ public class PlayerController : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed;
 
+    [Header("Animation")]
+    [SerializeField] private float minWalkingSpeed;
+
     private CharacterController _characterController;
+    private Animator _animator;
+
     private Vector2 _inputVector;
     private Vector3 _currentVelocity;
+
     private InputActions _inputActions;
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
         _inputActions = new InputActions();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -49,9 +56,11 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+
+        HandleAnimations();
     }
 
-    private void HandleMovement()
+    void HandleMovement()
     {
         Vector3 targetDirection = new Vector3(_inputVector.x, 0f, _inputVector.y).normalized;
         Vector3 targetVelocity = targetDirection * maxMovementSpeed;
@@ -63,7 +72,7 @@ public class PlayerController : MonoBehaviour
         _characterController.Move(_currentVelocity * Time.deltaTime);
     }
 
-    private void HandleRotation()
+    void HandleRotation()
     {
         Vector3 horizontalVelocity = new Vector3(_currentVelocity.x, 0f, _currentVelocity.z);
 
@@ -72,5 +81,13 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(horizontalVelocity);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    void HandleAnimations()
+    {
+        Vector3 horizontalVelocity = new Vector3(_currentVelocity.x, 0f, _currentVelocity.z);
+        float currentSpeed = horizontalVelocity.magnitude;
+
+        _animator.speed = currentSpeed > minWalkingSpeed ? 1f : 0f;
     }
 }

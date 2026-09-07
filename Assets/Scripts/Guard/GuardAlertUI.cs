@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GuardAlertUI : MonoBehaviour
 {
-    [SerializeField] private GuardBehaviorController behaviorController;
+    [SerializeField] private GuardAlertController alertController;
     private Image _alertBarUI;
 
     private void Start()
@@ -13,6 +13,6 @@ public class GuardAlertUI : MonoBehaviour
 
     private void Update()
     {
-        _alertBarUI.fillAmount = behaviorController.GetNormalizedAlertLevel();
+        _alertBarUI.fillAmount = alertController.GetNormalizedAlertLevel();
     }
 }

@@ -9,6 +9,7 @@ public class GuardMovementController : MonoBehaviour
     [SerializeField] private float maxMovementSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
+    [SerializeField] private float decelerationAngleDifference;
 
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed;
@@ -16,7 +17,6 @@ public class GuardMovementController : MonoBehaviour
     [Header("Waypoints")]
     [SerializeField] private WaypointsPath waypointsPath;
     [SerializeField] private float waypointReachThreshold;
-    [SerializeField] private float waypointDecelerationDistance;
     [SerializeField] private float waitTimeAtEnd;
 
     private List<Transform> _waypoints;
@@ -77,10 +77,9 @@ public class GuardMovementController : MonoBehaviour
     private void HandleMovement(float dt, Vector3 directionToTarget, float distanceToTarget)
     {
         float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
-        float turnSpeedMultiplier = Mathf.Clamp01(1f - (angleToTarget / 120f));
-        float arrivalMultiplier = Mathf.Clamp01(distanceToTarget / waypointDecelerationDistance);
+        float turnSpeedMultiplier = Mathf.Clamp01(1f - (angleToTarget / decelerationAngleDifference));
 
-        float targetSpeed = maxMovementSpeed * turnSpeedMultiplier * arrivalMultiplier;
+        float targetSpeed = maxMovementSpeed * turnSpeedMultiplier;
 
         float accelRate = (_currentSpeed < targetSpeed) ? acceleration : deceleration;
         _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed, accelRate * dt);
