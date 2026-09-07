@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class GuardAlertController : MonoBehaviour
 {
+    public event Action<float> OnAlertLevelChanged;
+
     [Header("Alert")]
     [SerializeField] private float maxAlertTime;
     [SerializeField] private float alertAcceleration;
@@ -30,10 +33,10 @@ public class GuardAlertController : MonoBehaviour
     public void UpdateLogic(float dt)
     {
         HandleAlertLevel(dt);
-
-        if (_playerTransform == null) return;
-
         HandleLookAtPlayer(dt);
+
+        float normalizedAlertLevel = _currentAlertTime / maxAlertTime;
+        OnAlertLevelChanged?.Invoke(normalizedAlertLevel);
     }
 
     void HandleAlertLevel(float dt)
@@ -56,10 +59,10 @@ public class GuardAlertController : MonoBehaviour
         }
     }
 
-    public float GetNormalizedAlertLevel() => _currentAlertTime / maxAlertTime;
-
     void HandleLookAtPlayer(float dt)
     {
+        if (_playerTransform == null) return;
+
         Vector3 directionToPlayer = _playerTransform.position - transform.position;
         directionToPlayer.y = 0f;
 

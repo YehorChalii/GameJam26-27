@@ -12,11 +12,13 @@ public class GuardBehaviorController : MonoBehaviour
 
     private GuardMovementController _movementController;
     private GuardAlertController _alertController;
+    private GuardViewController _viewController;
 
-    private void Start()
+    private void Awake()
     {
         _movementController = GetComponent<GuardMovementController>();
         _alertController = GetComponent<GuardAlertController>();
+        _viewController = GetComponent<GuardViewController>();
     }
 
     private void Update()

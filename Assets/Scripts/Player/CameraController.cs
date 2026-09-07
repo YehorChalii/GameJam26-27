@@ -10,12 +10,12 @@ public class CameraController : MonoBehaviour
     private Vector3 _positionOffset;
     private Vector3 _velocity;
 
-    private void Start()
+    private void Awake()
     {
         SetPositionOffset();
     }
 
-    private void SetPositionOffset()
+    void SetPositionOffset()
     {
         _positionOffset = transform.position - playerForwardTransform.position;
     }

@@ -10,8 +10,6 @@ public class WaypointsPath : MonoBehaviour
     {
         _waypoints = new List<Transform>();
 
-        _waypoints.Add(transform);
-
         foreach (Transform child in transform)
         {
             _waypoints.Add(child);

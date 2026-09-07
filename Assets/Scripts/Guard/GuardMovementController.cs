@@ -29,11 +29,18 @@ public class GuardMovementController : MonoBehaviour
     private Vector3 _currentVelocity;
     private float _currentSpeed;
 
-    private void Start()
+    private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+    }
 
+    private void Start()
+    {
         _waypoints = waypointsPath.Waypoints.ToList();
+
+        Vector3 waypointPathPosition = waypointsPath.transform.position;
+        Vector3 spawnPoint = new Vector3(waypointPathPosition.x, transform.position.y, waypointPathPosition.z);
+        transform.position = spawnPoint;
     }
 
     public void UpdateLogic(float dt)
