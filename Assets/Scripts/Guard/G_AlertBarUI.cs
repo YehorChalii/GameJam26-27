@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GuardAlertBarUI : MonoBehaviour
+public class G_AlertBarUI : MonoBehaviour
 {
     private Image _alertBarUI;
 

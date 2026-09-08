@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GuardDetectionController : MonoBehaviour
+public class G_DetectionController : MonoBehaviour
 {
-    [SerializeField] private GuardBehaviorController behaviorController;
+    [SerializeField] private G_BehaviorController behaviorController;
     [SerializeField] private LayerMask playerMask;
 
     private PlayerController _player;

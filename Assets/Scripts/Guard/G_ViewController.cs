@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class GuardViewController : MonoBehaviour
+public class G_ViewController : MonoBehaviour
 {
-    [SerializeField] private GuardAlertBarUI alertUI;
+    [SerializeField] private G_AlertBarUI alertUI;
 
-    private GuardAlertController _alertController;
+    private G_AlertController _alertController;
 
     private void Awake()
     {
-        _alertController = GetComponent<GuardAlertController>();
+        _alertController = GetComponent<G_AlertController>();
     }
 
     private void OnEnable()
