@@ -3,9 +3,15 @@ using UnityEngine;
 public class G_DetectionController : MonoBehaviour
 {
     [SerializeField] private G_BehaviorController behaviorController;
+
+    [Space]
+    [SerializeField] private float minDetectionTime;
     [SerializeField] private LayerMask playerMask;
+    [SerializeField] private LayerMask hitMask;
 
     private PlayerController _player;
+    private float _detectionTimer;
+    private bool _playerDetected;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +20,8 @@ public class G_DetectionController : MonoBehaviour
         if (other.TryGetComponent<PlayerController>(out var playerController))
         {
             _player = playerController;
+            _detectionTimer = 0f;
+            _playerDetected = false;
         }
     }
 
@@ -24,6 +32,9 @@ public class G_DetectionController : MonoBehaviour
         if (_player != null)
         {
             _player = null;
+            _detectionTimer = 0f;
+            _playerDetected = false;
+
             behaviorController.OnPlayerExit();
         }
     }
@@ -34,11 +45,23 @@ public class G_DetectionController : MonoBehaviour
 
         if (HasLineOfSight(_player))
         {
-            behaviorController.OnPlayerEnter(_player);
+            _detectionTimer += Time.deltaTime;
+
+            if (!_playerDetected && _detectionTimer >= minDetectionTime)
+            {
+                _playerDetected = true;
+                behaviorController.OnPlayerEnter(_player);
+            }
         }
         else
         {
-            behaviorController.OnPlayerExit();
+            _detectionTimer = 0f;
+
+            if (_playerDetected)
+            {
+                _playerDetected = false;
+                behaviorController.OnPlayerExit();
+            }
         }
     }
 
@@ -49,7 +72,7 @@ public class G_DetectionController : MonoBehaviour
 
         Vector3 direction = target - origin;
 
-        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hit))
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hit, direction.magnitude, hitMask))
         {
             return IsInLayerMask(hit.collider.gameObject, playerMask);
         }

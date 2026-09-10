@@ -68,9 +68,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuardDetectionController
   behaviorController: {fileID: 922080984156880741}
+  minDetectionTime: 0.3
   playerMask:
     serializedVersion: 2
     m_Bits: 8
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 72
 --- !u!1 &2512333337892580997
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,8 +89,8 @@ GameObject:
   - component: {fileID: 8736422473840179560}
   - component: {fileID: 287594280898101620}
   - component: {fileID: 208561558594250159}
-  - component: {fileID: 4529315855260680145}
   - component: {fileID: 81097774468107284}
+  - component: {fileID: 6071193489086266047}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -180,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1482ad18633e2d44d924f037158c13bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G_MovementController
-  maxMovementSpeed: 2
-  smoothTime: 0.4
+  maxMovementSpeed: 0.945
+  smoothTime: 0.6
   rotationSpeed: 4
 --- !u!114 &208561558594250159
 MonoBehaviour:
@@ -195,25 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce3552708d51b448892a5d1d43c0c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G_AlertController
-  maxAlertTime: 2
-  alertAcceleration: 2
-  alertDeceleration: 8
+  maxAlertTime: 2.2
+  alertAcceleration: 1.7
+  alertDeceleration: 14
   PlayerDetected: 0
---- !u!114 &4529315855260680145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2512333337892580997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0182b6ca8567581429e66e8a98f9f33b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GuardAnimationController
-  animator: {fileID: 4690035872620473776}
-  minWalkingSpeed: 0.7
-  animationChangeSpeed: 2
 --- !u!114 &81097774468107284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +216,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuardViewController
   alertUI: {fileID: 8904523258772526480}
+--- !u!114 &6071193489086266047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2512333337892580997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91e1f9767a8aea4489660ca89c03689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::G_AnimationController
+  animator: {fileID: 4690035872620473776}
+  isWalkingAnimBool: IsWalking
+  minWalkingSpeed: 0.7
+  playerSpottedAnimBool: PlayerSpotted
 --- !u!1 &2905431887627003822
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,16 +258,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2905431887627003822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 674674629490798545}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.99}
   m_SizeDelta: {x: 1.5, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6696475407857369091
@@ -298,9 +303,9 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &8904523258772526480
@@ -356,6 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5559951369317029701}
+  - component: {fileID: 5058849513140845246}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -379,6 +385,18 @@ Transform:
   - {fileID: 674674629490798545}
   m_Father: {fileID: 1790390072037346493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5058849513140845246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148617996394819821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efbfcc762d176d45b5755f4cb9b9d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_RotationLock
 --- !u!1 &6609210975682620767
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,17 +423,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6609210975682620767}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3254993019838061535}
   m_Father: {fileID: 5559951369317029701}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.99}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2553691066818813786

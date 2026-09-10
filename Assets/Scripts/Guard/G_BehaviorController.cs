@@ -13,6 +13,16 @@ public class G_BehaviorController : MonoBehaviour
         _alertController = GetComponent<G_AlertController>();
     }
 
+    private void OnEnable()
+    {
+        _alertController.OnPlayerSpotted += HandlePlayerSpotted;
+    }
+
+    private void OnDisable()
+    {
+        _alertController.OnPlayerSpotted -= HandlePlayerSpotted;
+    }
+
     private void Update()
     {
         _movementController.SetMovementTarget(_pathFollowController.FollowPosition);
@@ -32,5 +42,15 @@ public class G_BehaviorController : MonoBehaviour
         _movementController.ClearLookTarget();
 
         _alertController.PlayerDetected = false;
+    }
+
+    private void HandlePlayerSpotted()
+    {
+        _pathFollowController.Stop = true;
+
+        _pathFollowController.enabled = false;
+        _movementController.enabled = false;
+        _alertController.enabled = false;
+        this.enabled = false;
     }
 }

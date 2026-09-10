@@ -32,7 +32,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ANIM_Walking
+      name: ANIM_P_Crouching
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0

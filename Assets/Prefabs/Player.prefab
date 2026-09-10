@@ -240,6 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 177917305010407980}
+  - component: {fileID: 4970203079882520684}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -263,6 +264,18 @@ Transform:
   - {fileID: 3836067746126582963}
   m_Father: {fileID: 3785528466658024082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4970203079882520684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574599386432511424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efbfcc762d176d45b5755f4cb9b9d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_RotationLock
 --- !u!1 &7225849635033378966
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +430,7 @@ PrefabInstance:
     - target: {fileID: -4571605982943762130, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -3702037217650275473, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
     - target: {fileID: -4571605982943762130, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
       propertyPath: m_CastShadows
       value: 0

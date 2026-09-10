@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class G_AlertController : MonoBehaviour
 {
-    public event Action<float> OnAlertLevelChanged;
+    public Action<float> OnAlertLevelChanged;
+    public Action OnPlayerSpotted;
 
     [Header("Alert")]
     [SerializeField] private float maxAlertTime;
@@ -35,7 +36,10 @@ public class G_AlertController : MonoBehaviour
 
         if (PlayerDetected && _currentAlertTime >= maxAlertTime)
         {
-            _currentAlertTime = 0f;
+            OnPlayerSpotted?.Invoke();
+            GameEventsBus.RaisePlayerSpotted();
+
+            _currentAlertTime = maxAlertTime;
             _currentAlertRate = 0f;
         }
     }
