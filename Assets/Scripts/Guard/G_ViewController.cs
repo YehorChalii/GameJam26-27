@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class G_ViewController : MonoBehaviour
 {
-    [SerializeField] private G_AlertBarUI alertUI;
+    [SerializeField] private G_AlertSignifierUI alertSignifier;
 
     private G_AlertController _alertController;
 
@@ -23,6 +23,6 @@ public class G_ViewController : MonoBehaviour
 
     void UpdateAlertVisuals(float normalizedAlertLevel)
     {
-        alertUI.UpdateAlertBar(normalizedAlertLevel);
+        alertSignifier.UpdateAlertBar(normalizedAlertLevel);
     }
 }

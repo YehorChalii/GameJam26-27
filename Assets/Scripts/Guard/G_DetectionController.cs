@@ -9,7 +9,7 @@ public class G_DetectionController : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask hitMask;
 
-    private PlayerController _player;
+    private P_Controller _player;
     private float _detectionTimer;
     private bool _playerDetected;
 
@@ -17,7 +17,7 @@ public class G_DetectionController : MonoBehaviour
     {
         if (!IsInLayerMask(other.gameObject, playerMask)) return;
 
-        if (other.TryGetComponent<PlayerController>(out var playerController))
+        if (other.TryGetComponent<P_Controller>(out var playerController))
         {
             _player = playerController;
             _detectionTimer = 0f;
@@ -65,7 +65,7 @@ public class G_DetectionController : MonoBehaviour
         }
     }
 
-    private bool HasLineOfSight(PlayerController player)
+    private bool HasLineOfSight(P_Controller player)
     {
         Vector3 origin = transform.position;
         Vector3 target = player.transform.position;

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class P_Controller : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float maxMovementSpeed;
@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 _currentVelocity;
 
     private InputActions _inputActions;
+    private bool _inputEnabled = true;
+
+    public void SetInput(bool enable)
+    {
+        _inputEnabled = enable;
+        _inputVector = Vector2.zero;
+    }
 
     private void Awake()
     {
@@ -43,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInputVector(InputAction.CallbackContext ctx)
     {
+        if (!_inputEnabled) return;
+
         _inputVector = ctx.ReadValue<Vector2>();
     }
 

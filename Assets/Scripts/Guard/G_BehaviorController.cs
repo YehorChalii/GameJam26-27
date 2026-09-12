@@ -28,7 +28,7 @@ public class G_BehaviorController : MonoBehaviour
         _movementController.SetMovementTarget(_pathFollowController.FollowPosition);
     }
 
-    public void OnPlayerEnter(PlayerController player)
+    public void OnPlayerEnter(P_Controller player)
     {
         _pathFollowController.Stop = true;
         _movementController.SetLookTarget(player.transform);
