@@ -13,9 +13,14 @@ public class SequenceTrigger : MonoBehaviour
     public Transform CameraViewTransform;
 
     [Header("HUD")]
-    [SerializeField] private Image noSeeImage;
-    [SerializeField] private Image noHearImage;
-    [SerializeField] private Image noSpeakImage;
+    [SerializeField] private UI_Button noSeeImage;
+    [SerializeField] private UI_Button noHearImage;
+    [SerializeField] private UI_Button noSpeakImage;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip bgAudioClip;
+    [SerializeField] private AudioClip secondaryAudioClip;
+    [SerializeField] private bool returnToMainBGAudio;
 
     private bool _seeChoiceAvailable;
     private bool _hearChoiceAvailable;
@@ -40,6 +45,22 @@ public class SequenceTrigger : MonoBehaviour
         SetGameObjects(show, false);
     }
 
+    public void OnChoice(int choice)
+    {
+        switch (choice)
+        {
+            case 1:
+                noSeeImage.Beep();
+                break;
+            case 2:
+                noHearImage.Beep();
+                break;
+            case 3:
+                noSpeakImage.Beep();
+                break;
+        }
+    }
+
     public void OnSequenceFinished(int choice)
     {
         switch (choice)
@@ -55,26 +76,37 @@ public class SequenceTrigger : MonoBehaviour
                 break ;
         }
 
-
         SetGameObjects(show, false);
+
+        AudioManager.Instance.StopSecondary(2f);
+
         Destroy(gameObject);
     }
 
     private void HandleSeeChoice()
     {
         SetGameObjects(seeChoiceHide, false);
+
+        if (returnToMainBGAudio)
+        {
+            AudioManager.Instance.ReturnToMainBackground(2f);
+        }
     }
 
     private void HandleHearChoice()
     {
         SetGameObjects(hearChoiceHide, false);
-
-        AudioManager.Instance.StopSecondary();
+        AudioManager.Instance.ReturnToMainBackground(2f);
     }
 
     private void HandleSpeakChoice()
     {
         SetGameObjects(speakChoiceHide, false);
+
+        if (returnToMainBGAudio)
+        {
+            AudioManager.Instance.ReturnToMainBackground(2f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,6 +114,15 @@ public class SequenceTrigger : MonoBehaviour
         if (!other.TryGetComponent<P_Controller>(out _)) return;
 
         SetGameObjects(show, true);
+
+        if(bgAudioClip != null)
+        {
+            AudioManager.Instance.PlayBackground(bgAudioClip);
+        }
+        if(secondaryAudioClip != null)
+        {
+            AudioManager.Instance.PlaySecondary(secondaryAudioClip);
+        }
 
         GameEventsBus.OnSequenceStarted?.Invoke(this);
     }

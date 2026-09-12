@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
@@ -12,7 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxAudioSource;
 
     [Header("Audio Clips")]
-    [SerializeField] private AudioClip bgAudioClip;
+    [SerializeField] private AudioClip mainBGAudioClip;
 
     [Header("Volume")]
     [SerializeField, Range(0f, 1f)] private float masterVolume = 1f;
@@ -36,7 +35,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBackground(AudioClip clip, float fadeTime = 1f)
     {
-        if (clip == null || bgAudioSource.clip == clip) return;
+        if (clip == null) return;
+
+        if (bgAudioSource.clip == clip && bgAudioSource.isPlaying) return;
 
         if (_bgFadeCoroutine != null)
         {
@@ -48,6 +49,8 @@ public class AudioManager : MonoBehaviour
 
     public void StopBackground(float fadeTime = 1f)
     {
+        if (!bgAudioSource.isPlaying) return;
+
         if (_bgFadeCoroutine != null)
         {
             StopCoroutine(_bgFadeCoroutine);
@@ -58,12 +61,14 @@ public class AudioManager : MonoBehaviour
 
     public void ReturnToMainBackground(float fadeTime = 1f)
     {
+        if (bgAudioSource.clip == mainBGAudioClip && bgAudioSource.isPlaying) return;
+
         if (_bgFadeCoroutine != null)
         {
             StopCoroutine(_bgFadeCoroutine);
         }
 
-        _bgFadeCoroutine = StartCoroutine(ChangeBackgroundRoutine(bgAudioClip, fadeTime));
+        _bgFadeCoroutine = StartCoroutine(ChangeBackgroundRoutine(mainBGAudioClip, fadeTime));
     }
 
     private IEnumerator ChangeBackgroundRoutine(AudioClip newClip, float fadeTime)
@@ -93,7 +98,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySecondary(AudioClip clip, float fadeTime = 1f, bool loop = true)
     {
-        if (clip == null || secondaryAudioSource.clip == clip) return;
+        if (clip == null) return;
+
+        if (secondaryAudioSource.clip == clip && secondaryAudioSource.isPlaying) return;
 
         if (_secondaryFadeCoroutine != null)
         {
@@ -105,6 +112,8 @@ public class AudioManager : MonoBehaviour
 
     public void StopSecondary(float fadeTime = 1f)
     {
+        if (!secondaryAudioSource.isPlaying) return;
+
         if (_secondaryFadeCoroutine != null)
         {
             StopCoroutine(_secondaryFadeCoroutine);

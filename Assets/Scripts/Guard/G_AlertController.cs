@@ -11,6 +11,9 @@ public class G_AlertController : MonoBehaviour
     [SerializeField] private float alertAcceleration;
     [SerializeField] private float alertDeceleration;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip screamAudioCLip;
+
     private float _currentAlertTime = 0f;
     private float _currentAlertRate = 0f;
 
@@ -37,7 +40,8 @@ public class G_AlertController : MonoBehaviour
         if (PlayerDetected && _currentAlertTime >= maxAlertTime)
         {
             OnPlayerSpotted?.Invoke();
-            GameEventsBus.RaisePlayerSpotted();
+
+            AudioManager.Instance.PlaySFX(screamAudioCLip);
 
             _currentAlertTime = maxAlertTime;
             _currentAlertRate = 0f;

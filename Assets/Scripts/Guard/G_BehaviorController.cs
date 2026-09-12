@@ -46,6 +46,8 @@ public class G_BehaviorController : MonoBehaviour
 
     private void HandlePlayerSpotted()
     {
+        GameEventsBus.RaisePlayerSpotted();
+
         _pathFollowController.Stop = true;
 
         _pathFollowController.enabled = false;

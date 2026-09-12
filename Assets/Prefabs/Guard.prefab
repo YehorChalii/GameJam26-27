@@ -277,6 +277,7 @@ MonoBehaviour:
   maxAlertTime: 2.2
   alertAcceleration: 1.7
   alertDeceleration: 14
+  screamAudioCLip: {fileID: 8300000, guid: be6cc95fc4af6dc479f646ad70726d40, type: 3}
   PlayerDetected: 0
 --- !u!114 &81097774468107284
 MonoBehaviour:
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::G_AnimationController
   animator: {fileID: 4690035872620473776}
   isWalkingAnimBool: IsWalking
-  minWalkingSpeed: 0.7
+  minWalkingSpeed: 0.55
   playerSpottedAnimBool: PlayerSpotted
 --- !u!1 &4168676792004200791
 GameObject:

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,17 +8,22 @@ public class SequenceManager : MonoBehaviour
     [SerializeField] private P_CameraController cameraController;
 
     [Header("Transition")]
+    [SerializeField] private float transitionDelay;
     [SerializeField] private float transitionTime;
     [Range(0f, 1f)]
     [SerializeField] private float beepStart;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip choiceAudioClip;
+    [SerializeField] private AudioClip noSeeAudioClip;
+    [SerializeField] private AudioClip noHearAudioClip;
+    [SerializeField] private AudioClip noSpeakAudioClip;
 
     private SequenceTrigger _activeSequenceTrigger;
     private bool _sequenceActive;
 
     private InputActions _inputActions;
+
+    private Coroutine _choiceCoroutine;
 
     private void Awake()
     {
@@ -50,35 +56,48 @@ public class SequenceManager : MonoBehaviour
     {
         if (!_sequenceActive) return;
 
-        int choice = 1;
-
-        if (_activeSequenceTrigger.IsChoiceAvailable(choice))
-        {
-            HandleSequenceFinished(choice);
-        }
+        HandleChoice(1);
     }
 
     private void HandleChoice2(InputAction.CallbackContext context)
     {
         if (!_sequenceActive) return;
 
-        int choice = 2;
-
-        if (_activeSequenceTrigger.IsChoiceAvailable(choice))
-        {
-            HandleSequenceFinished(choice);
-        }
+        HandleChoice(2);
     }
 
     private void HandleChoice3(InputAction.CallbackContext context)
     {
         if (!_sequenceActive) return;
 
-        int choice = 3;
+        HandleChoice(3);
+    }
 
+    private void HandleChoice(int choice)
+    {
         if (_activeSequenceTrigger.IsChoiceAvailable(choice))
         {
-            HandleSequenceFinished(choice);
+            _activeSequenceTrigger.OnChoice(choice);
+
+            switch (choice)
+            {
+                case 1:
+                    AudioManager.Instance.PlaySFX(noSeeAudioClip);
+                    break;
+                case 2:
+                    AudioManager.Instance.PlaySFX(noHearAudioClip);
+                    break;
+                case 3:
+                    AudioManager.Instance.PlaySFX(noSpeakAudioClip);
+                    break;
+            }
+
+            if (_choiceCoroutine != null)
+            {
+                StopCoroutine(_choiceCoroutine);
+            }
+
+            _choiceCoroutine = StartCoroutine(HandleSequenceFinished(choice));
         }
     }
 
@@ -93,15 +112,16 @@ public class SequenceManager : MonoBehaviour
         UIManager.Instance.Beep(transitionTime * beepStart, transitionTime * (1f - beepStart));
     }
 
-    private void HandleSequenceFinished(int choice)
+    private IEnumerator HandleSequenceFinished(int choice)
     {
+        yield return new WaitForSeconds(transitionDelay);
+
         _sequenceActive = false;
         
         cameraController.SetTarget(null, transitionTime);
         playerController.SetInput(true);
 
         UIManager.Instance.Beep(0f, transitionTime * (1f - beepStart));
-        AudioManager.Instance.PlaySFX(choiceAudioClip);
 
         _activeSequenceTrigger.OnSequenceFinished(choice);
     }
