@@ -92,12 +92,25 @@ public class SequenceManager : MonoBehaviour
                     break;
             }
 
-            if (_choiceCoroutine != null)
+            if (!_activeSequenceTrigger.FinalTrigger)
             {
-                StopCoroutine(_choiceCoroutine);
-            }
+                if (_choiceCoroutine != null)
+                {
+                    return;
+                }
 
-            _choiceCoroutine = StartCoroutine(HandleSequenceFinished(choice));
+                _choiceCoroutine = StartCoroutine(HandleSequenceFinished(choice));
+            }
+            else
+            {
+                if (!_activeSequenceTrigger.IsChoiceAvailable(1) &&
+                   !_activeSequenceTrigger.IsChoiceAvailable(2) &&
+                   !_activeSequenceTrigger.IsChoiceAvailable(3))
+                {
+                    _sequenceActive = false;
+                    GameEventsBus.RaiseGameFinish();
+                }
+            }
         }
     }
 
@@ -115,6 +128,8 @@ public class SequenceManager : MonoBehaviour
     private IEnumerator HandleSequenceFinished(int choice)
     {
         yield return new WaitForSeconds(transitionDelay);
+
+        _choiceCoroutine = null;
 
         _sequenceActive = false;
         

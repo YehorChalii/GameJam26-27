@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SequenceTrigger : MonoBehaviour
 {
@@ -8,6 +7,9 @@ public class SequenceTrigger : MonoBehaviour
     [SerializeField] private List<GameObject> seeChoiceHide;
     [SerializeField] private List<GameObject> hearChoiceHide;
     [SerializeField] private List<GameObject> speakChoiceHide;
+
+    [Space]
+    public bool FinalTrigger;
 
     [Header("View")]
     public Transform CameraViewTransform;
@@ -25,6 +27,7 @@ public class SequenceTrigger : MonoBehaviour
     private bool _seeChoiceAvailable;
     private bool _hearChoiceAvailable;
     private bool _speakChoiceAvailable;
+
     public bool IsChoiceAvailable(int choice)
     {
         return choice switch
@@ -51,12 +54,15 @@ public class SequenceTrigger : MonoBehaviour
         {
             case 1:
                 noSeeImage.Beep();
+                _seeChoiceAvailable = false;
                 break;
             case 2:
                 noHearImage.Beep();
+                _hearChoiceAvailable = false;
                 break;
             case 3:
                 noSpeakImage.Beep();
+                _speakChoiceAvailable = false;
                 break;
         }
     }
@@ -96,7 +102,11 @@ public class SequenceTrigger : MonoBehaviour
     private void HandleHearChoice()
     {
         SetGameObjects(hearChoiceHide, false);
-        AudioManager.Instance.ReturnToMainBackground(2f);
+
+        if (!FinalTrigger)
+        {
+            AudioManager.Instance.ReturnToMainBackground(2f);
+        }
     }
 
     private void HandleSpeakChoice()

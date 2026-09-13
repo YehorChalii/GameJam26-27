@@ -6,6 +6,11 @@ public class SplashScreen : MonoBehaviour
 {
     [SerializeField] private float duration;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(duration);

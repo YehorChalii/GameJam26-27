@@ -10,16 +10,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float delayAfterPlayerSpotted;
     [SerializeField] private float blackScreenDuration;
 
+    [Header("Game Over")]
+    [SerializeField] private float gameFinishScreenDuration;
+
     private Coroutine _playerSpottedCoroutine;
 
     private void OnEnable()
     {
         GameEventsBus.OnPlayerSpotted += HandlePlayerSpotted;
+        GameEventsBus.OnGameFinish += HandleFinishGame;
     }
 
     private void OnDisable()
     {
         GameEventsBus.OnPlayerSpotted -= HandlePlayerSpotted;
+        GameEventsBus.OnGameFinish -= HandleFinishGame;
     }
 
     private void HandlePlayerSpotted()
@@ -41,5 +46,20 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delayAfterPlayerSpotted + blackScreenDuration);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void HandleFinishGame()
+    {
+        AudioManager.Instance.StopBackground(delayAfterPlayerSpotted);
+        AudioManager.Instance.StopSecondary(delayAfterPlayerSpotted);
+
+        StartCoroutine(FinishGameRoutine());
+    }
+
+    private IEnumerator FinishGameRoutine()
+    {
+        yield return new WaitForSeconds(gameFinishScreenDuration);
+
+        Application.Quit();
     }
 }

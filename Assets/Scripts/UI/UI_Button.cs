@@ -31,6 +31,8 @@ public class UI_Button : MonoBehaviour
         yield return ScaleTo(_originalScale, targetScale);
         yield return ScaleTo(targetScale, _originalScale);
 
+        gameObject.SetActive(false);
+
         _beepCoroutine = null;
     }
 

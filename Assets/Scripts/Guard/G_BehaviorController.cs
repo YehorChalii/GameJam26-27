@@ -15,12 +15,12 @@ public class G_BehaviorController : MonoBehaviour
 
     private void OnEnable()
     {
-        _alertController.OnPlayerSpotted += HandlePlayerSpotted;
+        GameEventsBus.OnPlayerSpotted += HandlePlayerSpotted;
     }
 
     private void OnDisable()
     {
-        _alertController.OnPlayerSpotted -= HandlePlayerSpotted;
+        GameEventsBus.OnPlayerSpotted -= HandlePlayerSpotted;
     }
 
     private void Update()
@@ -46,8 +46,6 @@ public class G_BehaviorController : MonoBehaviour
 
     private void HandlePlayerSpotted()
     {
-        GameEventsBus.RaisePlayerSpotted();
-
         _pathFollowController.Stop = true;
 
         _pathFollowController.enabled = false;

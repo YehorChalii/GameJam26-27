@@ -36,6 +36,7 @@ public class G_AlertController : MonoBehaviour
 
         if (PlayerDetected && _currentAlertTime >= maxAlertTime)
         {
+            GameEventsBus.RaisePlayerSpotted();
             OnPlayerSpotted?.Invoke();
 
             _currentAlertTime = maxAlertTime;
