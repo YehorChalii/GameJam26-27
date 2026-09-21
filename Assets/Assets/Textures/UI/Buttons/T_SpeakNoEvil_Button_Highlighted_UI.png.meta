@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 340fd8911f848d44ea917648709f57a2
+guid: 3ca91b8740afd2041b1001dc1d90dee7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4141794251135927704
-    second: T_SpeakNoEvil_Button_UI_0
+      213: -7839122920479238356
+    second: T_SpeakNoEvil_Button_Highlighted_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T_SpeakNoEvil_Button_UI_0
+      name: T_SpeakNoEvil_Button_Highlighted_UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 86ab940a2146586c0800000000000000
-      internalID: -4141794251135927704
+      spriteID: c27563ebc37d53390800000000000000
+      internalID: -7839122920479238356
       vertices: []
       indices: 
       edges: []

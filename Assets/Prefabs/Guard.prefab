@@ -343,7 +343,7 @@ MonoBehaviour:
   movementSpeed: 0.945
   waypointReachThreshold: 0.05
   waitTimeAtEnd: 3
-  isDebugging: 1
+  isDebugging: 0
   Stop: 0
   FollowPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &287594280898101620
@@ -361,6 +361,7 @@ MonoBehaviour:
   maxMovementSpeed: 0.945
   smoothTime: 0.6
   rotationSpeed: 4
+  isDebugging: 0
 --- !u!114 &208561558594250159
 MonoBehaviour:
   m_ObjectHideFlags: 0

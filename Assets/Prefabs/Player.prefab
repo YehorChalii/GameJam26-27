@@ -91,7 +91,7 @@ CharacterController:
   m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.05
+  m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7908503671373787728
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationController
   animator: {fileID: 6205320030427571723}
-  minWalkingSpeed: 0.9
-  animationChangeSpeed: 3
+  minWalkingSpeed: 0.8
+  animationChangeSpeed: 9
 --- !u!1 &3925064098000218241
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +430,7 @@ PrefabInstance:
     - target: {fileID: -4571605982943762130, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -3702037217650275473, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: -4571605982943762130, guid: 5bf889bbc15b76e48bbf7e9fe7da826a, type: 3}
       propertyPath: m_CastShadows
       value: 0
