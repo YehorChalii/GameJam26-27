@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
 
 public class G_DetectionController : MonoBehaviour
 {
-    [SerializeField] private G_BehaviorController behaviorController;
+    public Action<Transform> OnPlayerDetected;
+    public Action OnPlayerLost;
 
-    [Space]
     [SerializeField] private float minDetectionTime;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask hitMask;
 
-    private P_Controller _player;
+    private Transform _player;
     private float _detectionTimer;
     private bool _playerDetected;
 
@@ -19,7 +20,7 @@ public class G_DetectionController : MonoBehaviour
 
         if (other.TryGetComponent<P_Controller>(out var playerController))
         {
-            _player = playerController;
+            _player = playerController.transform;
             _detectionTimer = 0f;
             _playerDetected = false;
         }
@@ -35,7 +36,7 @@ public class G_DetectionController : MonoBehaviour
             _detectionTimer = 0f;
             _playerDetected = false;
 
-            behaviorController.OnPlayerExit();
+            OnPlayerLost?.Invoke();
         }
     }
 
@@ -50,7 +51,7 @@ public class G_DetectionController : MonoBehaviour
             if (!_playerDetected && _detectionTimer >= minDetectionTime)
             {
                 _playerDetected = true;
-                behaviorController.OnPlayerEnter(_player);
+                OnPlayerDetected?.Invoke(_player);
             }
         }
         else
@@ -60,15 +61,15 @@ public class G_DetectionController : MonoBehaviour
             if (_playerDetected)
             {
                 _playerDetected = false;
-                behaviorController.OnPlayerExit();
+                OnPlayerLost?.Invoke();
             }
         }
     }
 
-    private bool HasLineOfSight(P_Controller player)
+    private bool HasLineOfSight(Transform player)
     {
         Vector3 origin = transform.position;
-        Vector3 target = player.transform.position;
+        Vector3 target = player.position;
 
         Vector3 direction = target - origin;
 

@@ -67,7 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c16e36875210d34c81933caddd626d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuardDetectionController
-  behaviorController: {fileID: 922080984156880741}
   minDetectionTime: 0.3
   playerMask:
     serializedVersion: 2
@@ -161,7 +160,6 @@ GameObject:
   - component: {fileID: 1790390072037346493}
   - component: {fileID: 1401039210243762192}
   - component: {fileID: 3373694392830406940}
-  - component: {fileID: 922080984156880741}
   - component: {fileID: 8736422473840179560}
   - component: {fileID: 287594280898101620}
   - component: {fileID: 208561558594250159}
@@ -315,18 +313,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &922080984156880741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2512333337892580997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f972a907a386e304d8e4de1c505ca04e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::G_BehaviorController
 --- !u!114 &8736422473840179560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,9 +329,6 @@ MonoBehaviour:
   movementSpeed: 0.945
   waypointReachThreshold: 0.05
   waitTimeAtEnd: 3
-  isDebugging: 0
-  Stop: 0
-  FollowPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &287594280898101620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +344,6 @@ MonoBehaviour:
   maxMovementSpeed: 0.945
   smoothTime: 0.6
   rotationSpeed: 4
-  isDebugging: 0
 --- !u!114 &208561558594250159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +359,6 @@ MonoBehaviour:
   maxAlertTime: 2.2
   alertAcceleration: 1.7
   alertDeceleration: 14
-  PlayerDetected: 0
 --- !u!114 &81097774468107284
 MonoBehaviour:
   m_ObjectHideFlags: 0

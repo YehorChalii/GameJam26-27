@@ -7,43 +7,32 @@ public class G_AudioController : MonoBehaviour
     [SerializeField] private AudioClip detectAudioClip;
     [SerializeField] private AudioClip spotAudioClip;
 
-    private G_AlertController alertController;
+    private G_AlertController _alertController;
+    private G_DetectionController _detectionController;
 
     private AudioSource _audioSource;
-
-    private bool _wasDetecting;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        alertController = GetComponent<G_AlertController>();
+
+        _detectionController = GetComponentInChildren<G_DetectionController>();
+        _alertController = GetComponent<G_AlertController>();
     }
 
     private void OnEnable()
     {
-        alertController.OnAlertLevelChanged += HandleAlertLevelChanged;
-        alertController.OnPlayerSpotted += HandlePlayerSpotted;
+        _detectionController.OnPlayerDetected += HandlePlayerDetected;
+        _alertController.OnPlayerSpotted += HandlePlayerSpotted;
     }
 
     private void OnDisable()
     {
-        alertController.OnAlertLevelChanged -= HandleAlertLevelChanged;
-        alertController.OnPlayerSpotted -= HandlePlayerSpotted;
+        _detectionController.OnPlayerDetected -= HandlePlayerDetected;
+        _alertController.OnPlayerSpotted -= HandlePlayerSpotted;
     }
 
-    private void HandleAlertLevelChanged(float alertLevel)
-    {
-        bool playerDetected = alertLevel > 0f;
+    private void HandlePlayerDetected(Transform playerTransform) => _audioSource.PlayOneShot(detectAudioClip);
 
-        if (playerDetected && !_wasDetecting)
-        {
-            _audioSource.PlayOneShot(detectAudioClip);
-        }
-
-        _wasDetecting = playerDetected;
-    }
-    private void HandlePlayerSpotted()
-    {
-        _audioSource.PlayOneShot(spotAudioClip);
-    }
+    private void HandlePlayerSpotted() => _audioSource.PlayOneShot(spotAudioClip);
 }

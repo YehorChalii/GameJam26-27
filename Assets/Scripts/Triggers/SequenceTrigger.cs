@@ -134,7 +134,7 @@ public class SequenceTrigger : MonoBehaviour
             AudioManager.Instance.PlaySecondary(secondaryAudioClip);
         }
 
-        GameEventsBus.OnSequenceStarted?.Invoke(this);
+        GameEventsBus.RaiseSequenceStarted(this);
     }
 
     private void SetGameObjects(List<GameObject> gameObjects, bool active)

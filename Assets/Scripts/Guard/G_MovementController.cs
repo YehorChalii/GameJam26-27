@@ -11,17 +11,50 @@ public class G_MovementController : MonoBehaviour
     [SerializeField] private float rotationSpeed;
 
     private CharacterController _characterController;
+    private G_PathFollowController _pathFollowController;
+    private G_DetectionController _detectionController;
 
     private Vector3 _velocity;
-
     private Vector3 _movementTarget;
-    private bool _hasMovementTarget;
-
     private Transform _lookTarget;
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+
+        _pathFollowController = GetComponent<G_PathFollowController>();
+        _detectionController = GetComponentInChildren<G_DetectionController>();
+    }
+
+    private void OnEnable()
+    {
+        _pathFollowController.OnPathFollowPositionUpdated += HandlePathFollowPositionUpdated;
+
+        _detectionController.OnPlayerDetected += HandlePlayerDetected;
+        _detectionController.OnPlayerLost += HandlePlayerLost;
+    }
+
+    private void OnDisable()
+    {
+        _pathFollowController.OnPathFollowPositionUpdated -= HandlePathFollowPositionUpdated;
+
+        _detectionController.OnPlayerDetected -= HandlePlayerDetected;
+        _detectionController.OnPlayerLost -= HandlePlayerLost;
+    }
+
+    private void HandlePathFollowPositionUpdated(Vector3 pathFollowPosition)
+    {
+        _movementTarget = pathFollowPosition;
+    }
+
+    private void HandlePlayerDetected(Transform playerTransform)
+    {
+        _lookTarget = playerTransform;
+    }
+
+    private void HandlePlayerLost()
+    {
+        _lookTarget = null;
     }
 
     private void Update()
@@ -34,12 +67,6 @@ public class G_MovementController : MonoBehaviour
 
     private void HandleMovement(float dt)
     {
-        if (!_hasMovementTarget)
-        {
-            _velocity = Vector3.zero;
-            return;
-        }
-
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = _movementTarget;
 
@@ -72,22 +99,5 @@ public class G_MovementController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * dt);
-    }
-
-    public void SetMovementTarget(Vector3 target)
-    {
-        _movementTarget = target;
-        _hasMovementTarget = true;
-    }
-
-
-    public void SetLookTarget(Transform target)
-    {
-        _lookTarget = target;
-    }
-
-    public void ClearLookTarget()
-    {
-        _lookTarget = null;
     }
 }
