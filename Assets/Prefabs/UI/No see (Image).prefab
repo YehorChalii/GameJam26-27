@@ -158,8 +158,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Press [1]'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b6f192ca5854d0247a77e015a6e4da21, type: 2}
-  m_sharedMaterial: {fileID: -2165700886918419981, guid: b6f192ca5854d0247a77e015a6e4da21, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b52a9829d0bd6a42926633dd321f867, type: 2}
+  m_sharedMaterial: {fileID: -1411183551179995225, guid: 4b52a9829d0bd6a42926633dd321f867, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.45
+  m_fontSize: 0.5
   m_fontSizeBase: 0.35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

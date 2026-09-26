@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4b1330537f43e85488fe1a1359569f1a
+guid: bb9745aea5ac87a43845146817bca992
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4914408958836967548
-    second: T_SeeNoEvil_Button_UI_0
+      213: -8702314978792128932
+    second: T_Logo_UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T_SeeNoEvil_Button_UI_0
+      name: T_Logo_UI_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 420
-        height: 420
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c78897019ec733440800000000000000
-      internalID: 4914408958836967548
+      spriteID: c5eb88532aa2b3780800000000000000
+      internalID: -8702314978792128932
       vertices: []
       indices: 
       edges: []

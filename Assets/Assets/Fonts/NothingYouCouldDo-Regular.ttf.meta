@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 54cedfa9b19d48746845917198bed706
+guid: ff8f8f9f80f13d2409439815f971494f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,13 +9,14 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - WindSong
+  - Nothing You Could Do
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
+  subsetRecipes: []
   userData: 
   assetBundleName: 
   assetBundleVariant: 
